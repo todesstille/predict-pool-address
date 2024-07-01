@@ -11,13 +11,17 @@ describe("Test template", function () {
   });
 
   beforeEach(async () => {
-    const MockToken = await ethers.getContractFactory("MockToken");
-    token = await MockToken.deploy();
+    const Calculator = await ethers.getContractFactory("PredictAddress");
+    calculator = await Calculator.deploy();
   });
 
-  describe("Tokens", function () {
-    it("balance", async () => {
-      expect(await token.balanceOf(admin.address)).to.equal("1000000000000000000000000000");
+  describe("Predicts address", function () {
+    it("Pancake v3", async () => {
+      expect(await calculator.predictPancakeV3Pool(
+        "0x77Cd97D8DBAd50b0644527A888Eb1dDa2DC7df7b",
+        "0x55d398326f99059fF775485246999027B3197955",
+        100
+      )).to.equal("0xA20101189aBd987EF63E8e520553c3a6404071D1");
     });
   });
 });
